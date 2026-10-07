@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Serene Color Palette -->
+    <color name="serene_bg">#F7F8F6</color>
+    <color name="serene_card_bg">#FFFFFF</color>
+    <color name="serene_primary">#4A5D4E</color>
+    <color name="serene_primary_container">#D4E2D4</color>
+    <color name="serene_on_primary">#FFFFFF</color>
+    <color name="serene_text_primary">#1C2420</color>
+    <color name="serene_text_secondary">#606863</color>
+    <color name="serene_sage">#A2B29F</color>
+    <color name="serene_mist">#C5D3E8</color>
+    <color name="serene_sand">#EADBC8</color>
+    <color name="serene_lavender">#DAC0DE</color>
+    <color name="serene_divider">#E5EAE6</color>
+    <color name="serene_calm">#A2B29F</color>
+    <color name="serene_tired">#C5D3E8</color>
+    <color name="serene_stressed">#EADBC8</color>
+    <color name="serene_focused">#DAC0DE</color>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Serene</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_progress">Progress</string>
+    <string name="nav_profile">Profile</string>
+    <string name="serene_subtitle">wellbeing by design</string>
+    <string name="serene_desc">A personal space for calm, focus, rest, and growth</string>
+</resources>

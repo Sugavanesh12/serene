@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Serene" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/serene_primary</item>
+        <item name="colorOnPrimary">@color/serene_on_primary</item>
+        <item name="colorPrimaryContainer">@color/serene_primary_container</item>
+        <item name="colorSurface">@color/serene_card_bg</item>
+        <item name="colorOnSurface">@color/serene_text_primary</item>
+        <item name="android:windowBackground">@color/serene_bg</item>
+    </style>
+
+    <style name="Theme.Serene" parent="Base.Theme.Serene" />
+</resources>

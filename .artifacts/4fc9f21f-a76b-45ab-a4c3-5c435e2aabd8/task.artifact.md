@@ -1,0 +1,8 @@
+- `[x]` Create MovementActivity for live step tracking & distance calculation
+- `[x]` Create BreathworkActivity with interactive animated box breathing guide
+- `[x]` Create SleepActivity for night wind-down stories & sleep tracker
+- `[x]` Create JournalActivity for full gratitude diary & entry history
+- `[x]` Create MeditationActivity with glowing lotus meditation visualizer
+- `[x]` Update HomeFragment to route each practice card to its specialized activity
+- `[x]` Register all new activities in AndroidManifest.xml
+- `[x]` Verify build success and test each unique screen
