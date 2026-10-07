@@ -81,7 +81,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="42" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/serene_text_primary"/>
+                    <TextView android:id="@+id/tvProfileTotalSessions" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="12" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/serene_text_primary"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Total Sessions" android:textSize="12sp" android:textColor="@color/serene_text_secondary"/>
                 </LinearLayout>
 
@@ -93,7 +93,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="14.5h" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/serene_text_primary"/>
+                    <TextView android:id="@+id/tvProfileCalmHours" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0.7h" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/serene_text_primary"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Calm Hours" android:textSize="12sp" android:textColor="@color/serene_text_secondary"/>
                 </LinearLayout>
 
@@ -105,7 +105,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="20 min" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/serene_text_primary"/>
+                    <TextView android:id="@+id/tvProfileDailyGoal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="20 min" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/serene_text_primary"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Daily Goal" android:textSize="12sp" android:textColor="@color/serene_text_secondary"/>
                 </LinearLayout>
 

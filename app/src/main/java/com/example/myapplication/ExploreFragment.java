@@ -34,15 +34,26 @@ public class ExploreFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         allPractices = new ArrayList<>();
-        allPractices.add(new PracticeItem("1", "Sleep stories", "Drift into peaceful places.", "20 min", "Sleep", true));
+        allPractices.add(new PracticeItem("1", "Sleep stories", "Drift into peaceful places.", "20 min", "Sleep", false));
         allPractices.add(new PracticeItem("2", "Deep focus", "Clear your mind. Do what matters.", "25 min", "Focus", true));
-        allPractices.add(new PracticeItem("3", "Box breathing", "Find calm in four counts.", "5 min", "Breathwork", true));
+        allPractices.add(new PracticeItem("3", "Box breathing", "Find calm in four counts.", "5 min", "Breathwork", false));
         allPractices.add(new PracticeItem("4", "Gentle stretch", "Move mindfully, feel better.", "10 min", "Movement", true));
-        allPractices.add(new PracticeItem("5", "Rain sounds", "A soothing soundscape for rest or focus.", "30 min", "Sounds", true));
+        allPractices.add(new PracticeItem("5", "Rain sounds", "A soothing soundscape for rest or focus.", "30 min", "Sounds", false));
 
         List<PracticeItem> displayList = new ArrayList<>(allPractices);
         adapter = new PracticeAdapter(displayList, item -> {
-            Intent intent = new Intent(requireActivity(), FocusSessionActivity.class);
+            Intent intent;
+            if (item.getCategory().equalsIgnoreCase("Sleep")) {
+                intent = new Intent(requireActivity(), SleepActivity.class);
+            } else if (item.getCategory().equalsIgnoreCase("Breathwork")) {
+                intent = new Intent(requireActivity(), BreathworkActivity.class);
+            } else if (item.getCategory().equalsIgnoreCase("Movement")) {
+                intent = new Intent(requireActivity(), MovementActivity.class);
+            } else {
+                intent = new Intent(requireActivity(), FocusSessionActivity.class);
+                intent.putExtra("EXTRA_TITLE", item.getTitle());
+                intent.putExtra("EXTRA_SUBTITLE", item.getDescription());
+            }
             startActivity(intent);
         });
 

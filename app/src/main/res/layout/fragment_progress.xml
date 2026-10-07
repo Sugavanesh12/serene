@@ -87,6 +87,7 @@
                         app:tint="@color/serene_primary" />
 
                     <TextView
+                        android:id="@+id/tvStreakDays"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -131,6 +132,7 @@
                         app:tint="#5B86B2" />
 
                     <TextView
+                        android:id="@+id/tvWeeklyMins"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -175,6 +177,7 @@
                         app:tint="#C48E59" />
 
                     <TextView
+                        android:id="@+id/tvTotalSessionsCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"

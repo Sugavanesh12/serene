@@ -366,17 +366,5 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Continuous Real-time Walking Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnStartWalk"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/serene_primary"
-            android:text="🚶 Start Continuous Mindful Walk"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:cornerRadius="16dp" />
-
     </LinearLayout>
 </ScrollView>

@@ -48,8 +48,14 @@ public class PracticeAdapter extends RecyclerView.Adapter<PracticeAdapter.Practi
 
         holder.ivAction.setOnClickListener(v -> {
             boolean newState = !item.isDownloaded();
-            // Update downloaded status simulation
-            Toast.makeText(v.getContext(), item.getTitle() + (newState ? " downloaded for offline" : " removed from downloads"), Toast.LENGTH_SHORT).show();
+            item.setDownloaded(newState);
+            notifyItemChanged(holder.getAdapterPosition());
+
+            if (newState) {
+                Toast.makeText(v.getContext(), "✓ " + item.getTitle() + " saved for offline listening!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(v.getContext(), "Removed " + item.getTitle() + " from offline downloads", Toast.LENGTH_SHORT).show();
+            }
         });
 
         holder.itemView.setOnClickListener(v -> {

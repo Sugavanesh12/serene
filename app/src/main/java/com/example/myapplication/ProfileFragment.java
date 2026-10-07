@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.databinding.FragmentProfileBinding;
 
+import java.util.Locale;
+
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
@@ -32,6 +34,16 @@ public class ProfileFragment extends Fragment {
 
         String userEmail = AuthManager.getPhoneNumber(requireContext());
         binding.tvProfileEmail.setText(userEmail + " • Premium Plan");
+
+        // Load dynamic stats from StepManager
+        int totalSessions = StepManager.getCompletedSessions(requireContext());
+        int totalMins = StepManager.getTotalMinutes(requireContext());
+        int goalMins = StepManager.getDailyGoal(requireContext());
+        double calmHours = totalMins / 60.0;
+
+        binding.tvProfileTotalSessions.setText(String.valueOf(totalSessions));
+        binding.tvProfileCalmHours.setText(String.format(Locale.US, "%.1fh", calmHours));
+        binding.tvProfileDailyGoal.setText(String.format(Locale.US, "%d min", goalMins));
 
         binding.tvProfileName.setOnClickListener(v -> {
             EditText input = new EditText(requireContext());
@@ -62,10 +74,14 @@ public class ProfileFragment extends Fragment {
 
         binding.tvDailyGoal.setOnClickListener(v -> {
             String[] goals = {"10 minutes / day", "15 minutes / day", "20 minutes / day", "30 minutes / day"};
+            int[] goalValues = {10, 15, 20, 30};
             new AlertDialog.Builder(requireContext())
                     .setTitle("Set Daily Mindfulness Goal")
                     .setItems(goals, (dialog, which) -> {
-                        binding.tvDailyGoal.setText("🎯 Set Daily Mindfulness Goal (" + goals[which].split(" ")[0] + " min)");
+                        int selectedGoal = goalValues[which];
+                        StepManager.saveDailyGoal(requireContext(), selectedGoal);
+                        binding.tvProfileDailyGoal.setText(selectedGoal + " min");
+                        binding.tvDailyGoal.setText("🎯 Set Daily Mindfulness Goal (" + selectedGoal + " min)");
                         Toast.makeText(requireContext(), "Daily goal updated to " + goals[which], Toast.LENGTH_SHORT).show();
                     })
                     .show();

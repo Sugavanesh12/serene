@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_home) {
                 selectedFragment = new HomeFragment();
-            } else if (itemId == R.id.navigation_explore) {
-                selectedFragment = new ExploreFragment();
             } else if (itemId == R.id.navigation_progress) {
                 selectedFragment = new ProgressFragment();
             } else if (itemId == R.id.navigation_profile) {

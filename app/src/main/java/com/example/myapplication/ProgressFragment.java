@@ -1,11 +1,7 @@
 package com.example.myapplication;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +15,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.databinding.FragmentProgressBinding;
 
-public class ProgressFragment extends Fragment implements SensorEventListener {
+import java.util.Locale;
+
+public class ProgressFragment extends Fragment {
 
     private FragmentProgressBinding binding;
-    private SensorManager sensorManager;
-    private Sensor stepSensor;
-    private boolean isStepSensorPresent = false;
-    private int initialSteps = 0;
-    private int totalSteps = 1420; // baseline real steps
 
     @Nullable
     @Override
@@ -39,15 +32,18 @@ public class ProgressFragment extends Fragment implements SensorEventListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialize Step Counter Sensor
-        sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
-        if (sensorManager != null && sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
-            stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-            isStepSensorPresent = true;
-        }
+        // Populate dynamic real stats
+        int realSteps = StepManager.getSavedSteps(requireContext());
+        int sessions = StepManager.getCompletedSessions(requireContext());
+        int mins = StepManager.getTotalMinutes(requireContext());
+        int streak = StepManager.getStreakDays(requireContext());
+
+        binding.tvStreakDays.setText(String.valueOf(streak));
+        binding.tvWeeklyMins.setText(String.valueOf(mins));
+        binding.tvTotalSessionsCount.setText(String.valueOf(sessions));
 
         binding.btnSettings.setOnClickListener(v -> 
-            Toast.makeText(requireContext(), "Settings & Preferences", Toast.LENGTH_SHORT).show()
+            showPreferencesDialog()
         );
 
         binding.cardReflection.setOnClickListener(v -> {
@@ -68,51 +64,60 @@ public class ProgressFragment extends Fragment implements SensorEventListener {
                     .show();
         });
 
-        binding.tvReminders.setOnClickListener(v -> 
-            Toast.makeText(requireContext(), "Reminders configured", Toast.LENGTH_SHORT).show()
-        );
+        // Reminders: Open TimePickerDialog
+        binding.tvReminders.setOnClickListener(v -> {
+            TimePickerDialog timePicker = new TimePickerDialog(
+                    requireContext(),
+                    (view1, hourOfDay, minute) -> {
+                        String timeFormatted = String.format(Locale.US, "%02d:%02d %s", 
+                                (hourOfDay % 12 == 0 ? 12 : hourOfDay % 12), 
+                                minute, 
+                                (hourOfDay >= 12 ? "PM" : "AM"));
+                        Toast.makeText(requireContext(), "🔔 Daily reminder scheduled for " + timeFormatted, Toast.LENGTH_LONG).show();
+                    },
+                    8, 0, false
+            );
+            timePicker.setTitle("Schedule Daily Mindfulness Reminder");
+            timePicker.show();
+        });
 
-        binding.tvDownloads.setOnClickListener(v -> 
-            Toast.makeText(requireContext(), "5 items downloaded offline", Toast.LENGTH_SHORT).show()
-        );
+        // Downloads: Manage Offline Downloads
+        binding.tvDownloads.setOnClickListener(v -> {
+            String[] downloadedItems = {
+                    "✓ Deep focus (25 min) - 8.4 MB",
+                    "✓ Gentle stretch (10 min) - 4.2 MB",
+                    "🗑 Clear All Downloads"
+            };
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Offline Downloads (12.6 MB stored)")
+                    .setItems(downloadedItems, (dialog, which) -> {
+                        if (which == downloadedItems.length - 1) {
+                            Toast.makeText(requireContext(), "Cleared offline downloads", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(requireContext(), "Item ready for offline listening!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .show();
+        });
 
-        binding.tvPreferences.setOnClickListener(v -> 
-            Toast.makeText(requireContext(), "Preferences opened", Toast.LENGTH_SHORT).show()
-        );
+        // Preferences Dialog
+        binding.tvPreferences.setOnClickListener(v -> showPreferencesDialog());
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (isStepSensorPresent && sensorManager != null) {
-            sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (isStepSensorPresent && sensorManager != null) {
-            sensorManager.unregisterListener(this);
-        }
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-            int currentSteps = (int) event.values[0];
-            if (initialSteps == 0) {
-                initialSteps = currentSteps;
-            }
-            int sessionSteps = currentSteps - initialSteps;
-            totalSteps = 1420 + sessionSteps;
-            Toast.makeText(requireContext(), "Real-time step counted: " + totalSteps, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Not used
+    private void showPreferencesDialog() {
+        String[] options = {
+                "🌙 Theme: Serene Day/Night Auto",
+                "📳 Haptic Feedback: Enabled",
+                "🔔 Reminder Sound: Soft Chime",
+                "🎯 Daily Walking Target: 5,000 Steps"
+        };
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Preferences & Settings")
+                .setItems(options, (dialog, which) -> 
+                    Toast.makeText(requireContext(), "Preference updated!", Toast.LENGTH_SHORT).show()
+                )
+                .setPositiveButton("Close", null)
+                .show();
     }
 
     @Override

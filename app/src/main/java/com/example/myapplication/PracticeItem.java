@@ -23,4 +23,5 @@ public class PracticeItem {
     public String getDuration() { return duration; }
     public String getCategory() { return category; }
     public boolean isDownloaded() { return isDownloaded; }
+    public void setDownloaded(boolean downloaded) { isDownloaded = downloaded; }
 }
